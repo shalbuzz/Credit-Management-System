@@ -1,0 +1,42 @@
+﻿@model List<Credit_Management_System.ViewModels.Category.CategoryVM>
+
+@{
+    ViewData["Title"] = "Subcategories";
+}
+
+<h2>Subcategories</h2>
+
+<a asp-action="Index" class="btn btn-secondary mb-3">← Back to Categories</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No subcategories found for this parent category.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subcategory in Model)
+            {
+                <tr>
+                    <td>@subcategory.Id</td>
+                    <td>@subcategory.Name</td>
+                    <td>@subcategory.Description</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@subcategory.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@subcategory.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@subcategory.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

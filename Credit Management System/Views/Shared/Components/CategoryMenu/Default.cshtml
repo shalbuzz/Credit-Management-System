@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Credit_Management_System.ViewModels.Category.CategoryVM>
+
+<ul class="list-group">
+    @foreach (var category in Model)
+    {
+        <li class="list-group-item">
+            @category.Name
+        </li>
+    }
+</ul>

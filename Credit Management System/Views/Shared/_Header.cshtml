@@ -1,0 +1,61 @@
+﻿<!-- Sidebar -->
+<div class="sidebar" data-background-color="dark" style="width: 250px;">
+    <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header d-flex justify-content-between align-items-center p-3" data-background-color="dark" style="width: 250px;">
+            <!-- Logo -->
+            <a href="index.html" class="logo text-white fs-5 fw-bold">
+                Credit System
+            </a>
+            <!-- Toggle Sidebar Button (Optional) -->
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+            </div>
+        </div>
+        <!-- End Logo Header -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+                <li class="nav-item active">
+                    <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                        <p>Dashboard</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="dashboard">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="../demo1/index.html">
+                                    <span class="sub-item">Dashboard 1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Components</h4>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base">
+                        <p>Base</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                                    Admin Panel
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

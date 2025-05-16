@@ -1,0 +1,68 @@
+﻿@model List<Credit_Management_System.ViewModels.PaymentVM.PaymentVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-secondary mb-3">
+        <i class="fas fa-home"></i> HomePage
+    </a>
+</p>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                LoanId
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              PaymentDate
+            </th>
+            <th>
+               PaymentMethod
+            </th>
+            <th>
+                ReferenceNumber
+            </th>
+            
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanId)
+            </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { area = "Admin", id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { area = "Admin", id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { area = "Admin", id = item.Id })
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

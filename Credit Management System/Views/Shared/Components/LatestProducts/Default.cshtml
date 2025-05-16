@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Credit_Management_System.ViewModels.Product.ProductVM>
+
+<div class="row row-cols-1 row-cols-md-2 g-3">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="@item.Image" class="card-img-top" alt="@item.Name" style="height:150px; object-fit:cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">$@item.Price</p>
+                    <p class="card-text"><small>@item.CategoryName</small></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
