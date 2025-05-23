@@ -2,12 +2,16 @@
 using Credit_Management_System.Data;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -105,12 +109,15 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+           
             var categories = await _categoryService.GetAllAsync();
-            ViewBag.Categories = categories.Select(c => new SelectListItem
+            product.Categories = categories.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = c.Name
+                Text = c.Name,
+                Selected = c.Id == product.CategoryId 
             }).ToList();
+
 
             return View(product);
         }
@@ -148,7 +155,11 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                     Value = c.Id.ToString(),
                     Text = c.Name
                 }).ToList();
-
+                var dbProduct = await _productService.GetByIdAsync(product.Id);
+                if (dbProduct != null)
+                {
+                    product.ImageUrl = dbProduct.Image;
+                }
                 return View(product);
             }
 

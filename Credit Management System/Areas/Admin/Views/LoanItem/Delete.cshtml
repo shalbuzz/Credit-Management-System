@@ -4,41 +4,182 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Loan Item - Credit Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/assets/adminLayout/delete.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Navbar would be here -->
+    <!-- Main Content -->
+    <div class="delete-container">
+        <div class="delete-header">
+            <div class="delete-title">
+                <h1>Delete Loan Item</h1>
+                <p>Review loan item information before confirming deletion</p>
+            </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>LoanItemVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalAmount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalAmount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+            <div class="delete-actions">
+                <a asp-action="Index" class="delete-btn delete-btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to List</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="delete-card">
+            <div class="delete-warning">
+                <div class="delete-warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="delete-warning-content">
+                    <h2>Warning: This action cannot be undone</h2>
+                    <p>You are about to permanently delete this loan item and all associated data. This action cannot be reversed.</p>
+                </div>
+            </div>
+
+            <div class="delete-card-body">
+                <div class="delete-branch-header">
+                    <div class="delete-branch-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div class="delete-branch-title">
+                        <h3>@Model.ProductName</h3>
+                        <span class="delete-branch-id">ID: @Model.Id</span>
+                    </div>
+                    <div class="delete-branch-merchant">
+                        <span class="delete-badge">Loan Item</span>
+                    </div>
+                </div>
+
+                <div class="delete-divider">
+                    <span>Loan Item Information</span>
+                </div>
+
+                <div class="delete-info-grid">
+                    <div class="delete-info-item">
+                        <div class="delete-info-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <div class="delete-info-content">
+                            <div class="delete-info-label">Quantity</div>
+                            <div class="delete-info-value">@Model.Quantity</div>
+                        </div>
+                    </div>
+
+                    <div class="delete-info-item">
+                        <div class="delete-info-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="delete-info-content">
+                            <div class="delete-info-label">Price per Unit</div>
+                            <div class="delete-info-value">@Model.Price.ToString("C")</div>
+                        </div>
+                    </div>
+
+                    <div class="delete-info-item">
+                        <div class="delete-info-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="delete-info-content">
+                            <div class="delete-info-label">Total Amount</div>
+                            <div class="delete-info-value">@Model.TotalAmount.ToString("C")</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delete-impact">
+                    <div class="delete-impact-header">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Impact of Deletion</span>
+                    </div>
+
+                    <div class="delete-impact-items">
+                        <div class="delete-impact-item">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Association with the parent loan will be removed</span>
+                        </div>
+                        <div class="delete-impact-item">
+                            <i class="fas fa-money-check-alt"></i>
+                            <span>Financial records tied to this loan item may be affected</span>
+                        </div>
+                        <div class="delete-impact-item">
+                            <i class="fas fa-history"></i>
+                            <span>Historical data for this loan item will no longer be accessible</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delete-confirmation">
+                    <form asp-action="Delete" class="delete-form">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="delete-checkbox-container">
+                            <label class="delete-checkbox">
+                                <input type="checkbox" id="confirmDelete" required />
+                                <span class="delete-checkbox-mark"></span>
+                                <span class="delete-checkbox-text">I understand that this action cannot be undone and confirm that I want to permanently delete this loan item</span>
+                            </label>
+                        </div>
+
+                        <div class="delete-form-actions">
+                            <a asp-action="Index" class="delete-btn delete-btn-outline">
+                                <i class="fas fa-times"></i>
+                                <span>Cancel</span>
+                            </a>
+
+                            <button type="submit" class="delete-btn delete-btn-danger" id="deleteButton" disabled>
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Permanently Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Footer would be here -->
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enable delete button only when checkbox is checked
+        document.addEventListener('DOMContentLoaded', function () {
+            const confirmCheckbox = document.getElementById('confirmDelete');
+            const deleteButton = document.getElementById('deleteButton');
+
+            confirmCheckbox.addEventListener('change', function () {
+                deleteButton.disabled = !this.checked;
+            });
+
+            // Add confirmation dialog
+            const deleteForm = document.querySelector('.delete-form');
+            deleteForm.addEventListener('submit', function (event) {
+                if (!confirm('Are you absolutely sure you want to delete this loan item? This action CANNOT be undone.')) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+    <!-- jQuery (обязателен для Toastr) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+</html>

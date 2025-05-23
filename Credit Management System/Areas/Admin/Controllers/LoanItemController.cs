@@ -2,12 +2,16 @@
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.LoanItem;
 using Credit_Management_System.ViewModels.LoanItemVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class LoanItemController : Controller
     {
         private readonly ILoanItemService _loanItemService;
@@ -31,7 +35,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var item = await _loanItemService.GetLoanItemWithProductAsync(id);
+            var item = await _loanItemService.GetByIdWithLoanAndProductAsync(id);
             if (item == null) { TempData["Error"] = "LoanItem not found."; return NotFound(); }
             return View(item);
         }
@@ -39,7 +43,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var loans = await _loanService.GetAllAsync();
+            var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
             var products = await _productService.GetAllAsync();
             var model = new LoanItemCreateVM
             {
@@ -55,7 +59,6 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                 }).ToList()
 
             };
-            TempData["Error"] = "Please correct the errors in the form.";
             return View(model);
         }
 
@@ -65,7 +68,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
+                var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
                 var products = await _productService.GetAllAsync();
                 loanItem.Loans = loans.Select(m => new SelectListItem
                 {
@@ -92,27 +95,26 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var item = await _loanItemService.GetByIdVMWithLoanAndProductAsync(id);
-
             if (item == null) return NotFound();
 
-            var loans = await _loanService.GetAllAsync();
+            var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
             var products = await _productService.GetAllAsync();
-            var model = new LoanItemUpdateVM
+
+            item.Loans = loans.Select(m => new SelectListItem
             {
-                Loans = loans.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.CustomerName
-                }).ToList(),
-                Products = products.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.Name
-                }).ToList()
-            };
-            TempData["Error"] = "Please correct the errors in the form.";
-            return View(item);
+                Value = m.Id.ToString(),
+                Text = m.CustomerName
+            }).ToList();
+
+            item.Products = products.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            return View(item); 
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -120,22 +122,24 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
+                var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
                 var products = await _productService.GetAllAsync();
+
                 loanItem.Loans = loans.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
                     Text = m.CustomerName
                 }).ToList();
+
                 loanItem.Products = products.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
                     Text = m.Name
                 }).ToList();
-                
-                return View(loanItem);
+
+                return View(loanItem); 
             }
-               
+
 
             await _loanItemService.UpdateWithLoanAndProductAsync(loanItem);
             TempData["Success"] = "LoanItem updated successfully!";

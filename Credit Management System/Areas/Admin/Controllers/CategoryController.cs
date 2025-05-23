@@ -1,12 +1,16 @@
 ﻿using Credit_Management_System.Data;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

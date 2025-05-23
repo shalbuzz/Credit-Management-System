@@ -29,7 +29,9 @@ namespace Credit_Management_System.Configurations
             builder.HasMany(c => c.Loans)
                    .WithOne(l => l.Customer)
                    .HasForeignKey(l => l.CustomerId)
-                   .OnDelete(DeleteBehavior.Cascade); 
+                   .OnDelete(DeleteBehavior.Cascade);
+
+           
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Credit_Management_System.Models;
 using Credit_Management_System.ViewModels.Loan;
 using Credit_Management_System.ViewModels.LoanVM;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Services.Interfaces
 {
@@ -15,6 +16,12 @@ namespace Credit_Management_System.Services.Interfaces
         Task<LoanUpdateVM> UpdateVMAsync(LoanUpdateVM loanUpdateVM);
         Task<LoanDetailsVM> GetLoanDetailsAsync(int id);
         Task<LoanUpdateVM?> GetLoanDetailsVMByCustomerIdAsync(int id);
+        Task<List<SelectListItem>> GetAvailableLoansForLoanDetailAsync();
+
+        Task<bool> ExistsAsync(int loanId);
+        Task<decimal> GetTotalDebtByCustomerIdAsync(int customerId);
+        Task<bool> CanCustomerTakeLoanAsync(int customerId, decimal newLoanAmount);
+
 
 
     }

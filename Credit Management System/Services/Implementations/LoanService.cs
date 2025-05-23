@@ -4,12 +4,14 @@ using Credit_Management_System.Repositories.Interfaces;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Loan;
 using Credit_Management_System.ViewModels.LoanVM;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Services.Implementations
 {
     public class LoanService : GenericService<LoanVM, Loan>, ILoanService
     {
         private readonly ILoanRepository _loanRepository;
+        private const decimal MaxCreditLimit = 10000m; 
 
         public LoanService(ILoanRepository loanRepository, IMapper mapper)
             : base(loanRepository, mapper)
@@ -80,6 +82,33 @@ namespace Credit_Management_System.Services.Implementations
             }
             var loanDetailsVM = _mapper.Map<LoanUpdateVM>(data);
             return loanDetailsVM;
+        }
+
+        public async Task<List<SelectListItem>> GetAvailableLoansForLoanDetailAsync()
+        {
+            var availableLoans = await _loanRepository.GetAvailableLoansForLoanDetailAsync();
+            return availableLoans.Select(loan => new SelectListItem
+            {
+                Value = loan.Id.ToString(),
+                Text = loan.Customer.FullName
+            }).ToList();
+        }
+
+        public async Task<bool> ExistsAsync(int loanId)
+        {
+            return await _loanRepository.ExistsAsync(loanId);
+        }
+
+        public async Task<decimal> GetTotalDebtByCustomerIdAsync(int customerId)
+        {
+            return await _loanRepository.GetTotalDebtByCustomerIdAsync(customerId);
+        }
+
+        public async  Task<bool> CanCustomerTakeLoanAsync(int customerId, decimal newLoanAmount)
+        {
+            var totalDebt = await _loanRepository.GetTotalDebtByCustomerIdAsync(customerId);
+
+            return (totalDebt + newLoanAmount) <= MaxCreditLimit;
         }
     }
 

@@ -25,7 +25,6 @@ namespace Credit_Management_System.ViewModels.Loan
 
         [Required(ErrorMessage = "End date is required.")]
         [DataType(DataType.Date)]
-        [Compare("StartDate", ErrorMessage = "End date must be later than the start date.")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Status is required.")]

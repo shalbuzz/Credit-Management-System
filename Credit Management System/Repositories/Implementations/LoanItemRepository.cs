@@ -15,9 +15,11 @@ namespace Credit_Management_System.Repositories.Implementations
 
         public async Task<IEnumerable<LoanItem>> GetAllWithLoanAndProductAsync()
         {
-           return await _context.LoanItems
-                .Include(li => li.Loan)
-                .Include(li => li.Product)
+            return await _context.LoanItems
+                .Include(x => x.Loan)
+                    .ThenInclude(l => l.Customer)
+                .Include(x => x.Product)
+                .Where(x => !x.IsDeleted)
                 .ToListAsync();
         }
 
@@ -32,8 +34,10 @@ namespace Credit_Management_System.Repositories.Implementations
         public async Task<LoanItem?> GetLoanItemWithProductAsync(int id)
         {
             return await _context.LoanItems
-                .Include(li => li.Product)
-                .FirstOrDefaultAsync(li => li.Id == id);
+                .Include(li => li.Loan)
+            .ThenInclude(l => l.Customer)
+        .Include(li => li.Product)
+        .FirstOrDefaultAsync(li => li.Id == id);
         }
     }
 }

@@ -13,6 +13,42 @@
       "PackagePath": "staticwebassets\\OneDrive\\desktop.ini"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\adminLayout.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\adminLayout.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\assignRole.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\assignRole.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\data-table.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\data-table.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\delete.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\delete.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\details.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\details.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\edit.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\edit.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\login.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\login.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\product.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\product.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\adminLayout\\register.css",
+      "PackagePath": "staticwebassets\\assets\\adminLayout\\register.css"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\assets\\css\\bootstrap.min.css"
     },
@@ -1625,6 +1661,10 @@
       "PackagePath": "staticwebassets\\assets\\js\\setting-demo2.js"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\assets\\styles\\style.css",
+      "PackagePath": "staticwebassets\\assets\\styles\\style.css"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -1633,12 +1673,24 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\4da9fa7f-58d6-4a34-83a3-90e656cea243.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\4da9fa7f-58d6-4a34-83a3-90e656cea243.jpg"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\a9e771cb-499f-4b4f-ba27-6640449d9ec5.jpg",
       "PackagePath": "staticwebassets\\images\\products\\a9e771cb-499f-4b4f-ba27-6640449d9ec5.jpg"
     },
     {
-      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\e4f3cf99-c0ee-4e68-b0a8-cf73e47b136c.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\e4f3cf99-c0ee-4e68-b0a8-cf73e47b136c.jpg"
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\c21bf084-09a6-4476-aa0c-7ef81a23cb66.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\c21bf084-09a6-4476-aa0c-7ef81a23cb66.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\d87a102a-6880-43b3-bc29-1351ac662139.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\d87a102a-6880-43b3-bc29-1351ac662139.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\images\\products\\ddb6b4ff-e861-4a18-8d3d-5ce0a62966a8.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\ddb6b4ff-e861-4a18-8d3d-5ce0a62966a8.jpg"
     },
     {
       "Id": "C:\\Users\\user\\source\\repos\\Credit Management System\\Credit Management System\\wwwroot\\js\\site.js",

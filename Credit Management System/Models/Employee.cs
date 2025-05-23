@@ -12,7 +12,11 @@
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
 
-        public ICollection<Loan> LoansHandled { get; set; }
+        public string? UserId { get; set; }
+        public User? User { get; set; }
+
+
+        public ICollection<Loan> LoansHandled { get; set; } = new List<Loan>();
     }
-    
+
 }

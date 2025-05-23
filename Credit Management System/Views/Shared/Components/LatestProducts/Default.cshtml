@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<Credit_Management_System.ViewModels.Product.ProductVM>
 
-<div class="row row-cols-1 row-cols-md-2 g-3">
-    @foreach (var item in Model)
-    {
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="@item.Image" class="card-img-top" alt="@item.Name" style="height:150px; object-fit:cover;" />
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">$@item.Price</p>
-                    <p class="card-text"><small>@item.CategoryName</small></p>
+<div class="latest-products mt-5">
+    <div class="section-header">
+        <h4><i class="fas fa-bolt me-2"></i>Latest Products</h4>
+        <a href="#" class="btn btn-link">View All</a>
+    </div>
+    <div class="latest-products-slider">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="latest-product-card">
+                        <div class="latest-product-image">
+                            <img src="@item.Image" alt="@item.Name" class="img-fluid">
+                            <div class="latest-product-badge">New</div>
+                        </div>
+                        <div class="latest-product-content">
+                            <h5 class="latest-product-title">@item.Name</h5>
+                            <div class="latest-product-price">$@item.Price</div>
+                            <div class="latest-product-category">@item.CategoryName</div>
+                            <a href="#" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-    }
+    </div>
 </div>

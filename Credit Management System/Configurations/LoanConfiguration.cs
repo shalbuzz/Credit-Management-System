@@ -36,12 +36,12 @@ namespace Credit_Management_System.Configurations
             builder.HasOne(l => l.Customer)
                    .WithMany(c => c.Loans)
                    .HasForeignKey(l => l.CustomerId)
-                   .OnDelete(DeleteBehavior.Cascade); 
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(l => l.Employee)
-                   .WithMany(e => e.LoansHandled)
-                   .HasForeignKey(l => l.EmployeeId)
-                   .OnDelete(DeleteBehavior.SetNull); 
+       .WithMany(e => e.LoansHandled)
+       .HasForeignKey(l => l.EmployeeId)
+       .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(l => l.LoanDetail)
                    .WithOne(ld => ld.Loan)

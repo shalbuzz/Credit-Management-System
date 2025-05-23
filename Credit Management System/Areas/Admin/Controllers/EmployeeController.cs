@@ -4,12 +4,15 @@ using Credit_Management_System.Services.Implementations;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Branch;
 using Credit_Management_System.ViewModels.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;

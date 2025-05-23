@@ -1,0 +1,153 @@
+﻿@model Credit_Management_System.Areas.Admin.Models.SignInVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Credit Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+
+    <link href="~/assets/adminLayout/login.css" rel="stylesheet" />
+   
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-background">
+            <div class="login-shape"></div>
+            <div class="login-shape"></div>
+        </div>
+
+        <div class="login-wrapper">
+            <div class="login-left">
+                <div class="login-info">
+                    <div class="login-brand">
+                        <div class="login-logo">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h1>Credit Management System</h1>
+                    </div>
+
+                    <div class="login-features">
+                        <h2>Welcome Back!</h2>
+                        <p>Access your account to manage loans, customers, and payments in one powerful system.</p>
+
+                        <div class="login-feature-list">
+                            <div class="login-feature-item">
+                                <div class="login-feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="login-feature-text">
+                                    <h3>Secure Access</h3>
+                                    <p>Your data is protected with enterprise-grade security</p>
+                                </div>
+                            </div>
+
+                            <div class="login-feature-item">
+                                <div class="login-feature-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div class="login-feature-text">
+                                    <h3>Powerful Dashboard</h3>
+                                    <p>Get insights and manage your business efficiently</p>
+                                </div>
+                            </div>
+
+                            <div class="login-feature-item">
+                                <div class="login-feature-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="login-feature-text">
+                                    <h3>Mobile Friendly</h3>
+                                    <p>Access your account from any device, anywhere</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-right">
+                <div class="login-form-container">
+                    <div class="login-form-header">
+                        <h2>Sign In</h2>
+                        <p>Enter your credentials to access your account</p>
+                    </div>
+
+                    <form asp-action="Login" method="post" class="login-form">
+                        <div asp-validation-summary="ModelOnly" class="login-error"></div>
+
+                        <div class="login-input-group">
+                            <label asp-for="Email">Email Address</label>
+                            <div class="login-input-container">
+                                <i class="fas fa-envelope"></i>
+                                <input asp-for="Email" type="email" placeholder="Enter your email" />
+                            </div>
+                            <span asp-validation-for="Email" class="login-input-error"></span>
+                        </div>
+
+                        <div class="login-input-group">
+                            <div class="login-label-group">
+                                <label asp-for="Password">Password</label>
+                                <a href="/forgot-password" class="login-forgot">Forgot Password?</a>
+                            </div>
+                            <div class="login-input-container">
+                                <i class="fas fa-lock"></i>
+                                <input asp-for="Password" type="password" placeholder="Enter your password" />
+                                 
+                            </div>
+                            <span asp-validation-for="Password" class="login-input-error"></span>
+                        </div>
+
+                        <div class="login-remember">
+                            <label class="login-checkbox">
+                                <input asp-for="RememberMe" type="checkbox" />
+                                <span class="login-checkbox-mark"></span>
+                                <span class="login-checkbox-text">Remember me</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="login-button">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+
+                        <div class="login-divider">
+                            <span>OR</span>
+                        </div>
+
+                        <div class="login-social">
+                            <button type="button" class="login-social-button login-google">
+                                <i class="fab fa-google"></i>
+                                <span>Sign in with Google</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="login-footer">
+                        <p>Don't have an account? <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="login-register-link">Create Account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

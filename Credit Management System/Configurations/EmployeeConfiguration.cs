@@ -35,12 +35,15 @@ namespace Credit_Management_System.Configurations
             builder.HasOne(e => e.Branch)
                    .WithMany(b => b.Employees)
                    .HasForeignKey(e => e.BranchId)
-                   .OnDelete(DeleteBehavior.Restrict); 
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(e => e.LoansHandled)
-                   .WithOne(l => l.Employee)
-                   .HasForeignKey(l => l.EmployeeId)
-                   .OnDelete(DeleteBehavior.SetNull); 
+          .WithOne(l => l.Employee);
+
+            builder.HasOne(e => e.User)
+              .WithMany()
+              .HasForeignKey(e => e.UserId)
+              .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -232,7 +232,6 @@ C:\Users\user\source\repos\Credit Management System\Credit Management System\bin
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authorization.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.dll
@@ -243,8 +242,6 @@ C:\Users\user\source\repos\Credit Management System\Credit Management System\bin
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cors.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -270,7 +267,6 @@ C:\Users\user\source\repos\Credit Management System\Credit Management System\bin
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Identity.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Localization.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Metadata.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
@@ -340,11 +336,8 @@ C:\Users\user\source\repos\Credit Management System\Credit Management System\bin
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Hosting.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Http.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Core.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Localization.dll
-C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Logging.Configuration.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Logging.Console.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\refs\Microsoft.Extensions.Logging.Debug.dll
@@ -562,3 +555,10 @@ C:\Users\user\source\repos\Credit Management System\Credit Management System\bin
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\user\source\repos\Credit Management System\Credit Management System\obj\Debug\net8.0\Credit Management System.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\user\source\repos\Credit Management System\Credit Management System\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

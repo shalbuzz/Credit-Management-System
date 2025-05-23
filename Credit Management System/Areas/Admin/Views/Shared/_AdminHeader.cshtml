@@ -1,14 +1,44 @@
-﻿
+﻿<nav class="admin-navbar">
+    <div class="admin-navbar-container">
+        <div class="admin-navbar-brand">
+            <i class="fas fa-shield-alt admin-icon"></i>
+            <span class="admin-title">Admin Panel</span>
+        </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand ms-3" href="/Admin">Admin Panel</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link btn btn-secondary text-white ms-3" href="/" role="button">
-                    <i class="fas fa-home"></i> HomePage
-                </a>
-            </li>
-        </ul>
+        <div class="admin-navbar-menu">
+            <ul class="admin-navbar-nav">
+                <li class="admin-nav-item">
+                    <a href="/dashboard" class="admin-nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="/users" class="admin-nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="/settings" class="admin-nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="admin-navbar-actions">
+            <a href="/" class="admin-home-button">
+                <i class="fas fa-home"></i>
+                <span>Back to Site</span>
+            </a>
+
+            <div class="admin-user-menu">
+                <img src="https://cdn-icons-png.flaticon.com/256/4042/4042356.png" alt="Admin" class="admin-avatar">
+                <span class="admin-username">Admin</span>
+                <i class="fas fa-chevron-down admin-dropdown-icon"></i>
+            </div>
+        </div>
     </div>
 </nav>

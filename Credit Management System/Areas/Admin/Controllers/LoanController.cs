@@ -2,12 +2,16 @@
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Loan;
 using Credit_Management_System.ViewModels.LoanVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class LoanController : Controller
     {
         private readonly ILoanService _loanService;
@@ -85,6 +89,14 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                     Text = m.FullName
                 }).ToList();
 
+                return View(loan);
+            }
+
+            bool canTakeLoan = await _loanService.CanCustomerTakeLoanAsync(loan.CustomerId, loan.Amount);
+
+            if (!canTakeLoan)
+            {
+                ModelState.AddModelError("", "\"The customer has exceeded the credit limit.\".");
                 return View(loan);
             }
 

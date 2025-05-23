@@ -4,7 +4,7 @@ using Credit_Management_System.ViewModels.LoanDetailVM;
 
 namespace Credit_Management_System.Services.Interfaces
 {
-    public interface ILoanDetailService : IGenericService<LoanDetailVM,LoanDetail>
+    public interface ILoanDetailService 
     {
         Task<IEnumerable<LoanDetailVM>> GetAllWithLoansAsync();
         Task<LoanDetailVM?> GetByLoanIdAsync(int loanId);
@@ -13,6 +13,7 @@ namespace Credit_Management_System.Services.Interfaces
         Task<LoanDetailUpdateVM> UpdateWithLoansAsync(LoanDetailUpdateVM loanDetailUpdateVM);
         Task<LoanDetailDetailsVM?> GetByIdWithLoansAndPaymentsAsync(int id);
         Task<LoanDetailUpdateVM?> GetByIdVMWithLoansAndPaymentsAsync(int id);
+        Task DeleteAsync(int id);
     }
    
 }

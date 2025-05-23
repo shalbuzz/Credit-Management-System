@@ -1,0 +1,304 @@
+﻿@model Credit_Management_System.Areas.Admin.Models.AssignRoleVM
+
+@{
+    ViewData["Title"] = "AssignRole";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Role - Credit Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Select2 for enhanced dropdowns -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/assets/adminLayout/assignRole.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Navbar would be here -->
+    <!-- Main Content -->
+    <div class="assign-container">
+        <div class="assign-header">
+            <div class="assign-title">
+                <h1>Assign Role</h1>
+                <p>Grant system access permissions to users</p>
+            </div>
+
+            <div class="assign-actions">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="assign-btn assign-btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to List</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="assign-content">
+            <div class="assign-card">
+                <div class="assign-card-header">
+                    <div class="assign-card-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="assign-card-title">
+                        <h2>Role Assignment</h2>
+                        <p>Select a user and assign an appropriate role</p>
+                    </div>
+                </div>
+
+                <div class="assign-card-body">
+                    <form asp-action="AssignRole" class="assign-form">
+                        <div asp-validation-summary="ModelOnly" class="assign-error-summary">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Please correct the following errors:</span>
+                        </div>
+
+                        <div class="assign-form-section">
+                            <div class="assign-form-group">
+                                <label asp-for="UserId" class="assign-label">
+                                    <i class="fas fa-user"></i>
+                                    <span>Select User</span>
+                                </label>
+                                <div class="assign-select-container">
+                                    <select asp-for="UserId" class="assign-select user-select" data-placeholder="Choose a user...">
+                                        <option value="">Select User</option>
+                                        @foreach (var item in Model.Users)
+                                        {
+                                            <option value="@item.Id">@item.FullName</option>
+                                        }
+                                    </select>
+                                    <i class="fas fa-chevron-down assign-select-arrow"></i>
+                                </div>
+                                <span asp-validation-for="UserId" class="assign-error"></span>
+                                <small class="assign-hint">Select the user you want to assign a role to</small>
+                            </div>
+
+                            <div class="assign-user-preview" id="userPreview">
+                                <div class="assign-user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="assign-user-info">
+                                    <h4 id="previewName">No user selected</h4>
+                                    <p id="previewEmail">Please select a user from the dropdown</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="assign-form-section">
+                            <div class="assign-form-group">
+                                <label asp-for="RoleName" class="assign-label">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Select Role</span>
+                                </label>
+                                <div class="assign-role-options">
+                                    @foreach (var item in Model.Roles)
+                                    {
+                                        <div class="assign-role-option">
+                                            <input type="radio" name="RoleName" id="role_@item.Name" value="@item.Name" class="assign-role-radio" />
+                                            <label for="role_@item.Name" class="assign-role-card">
+                                                <div class="assign-role-icon">
+                                                    @switch (item.Name)
+                                                    {
+                                                        case "Admin":
+                                                            <i class="fas fa-user-cog"></i>
+                                                            break;
+
+                                                        case "Employee":
+                                                            <i class="fas fa-user"></i>
+                                                            break;
+
+                                                        default:
+                                                            <i class="fas fa-user-tag"></i>
+                                                            break;
+                                                    }
+                                                </div>
+                                                <div class="assign-role-content">
+                                                    <h4>@item.Name</h4>
+                                                    <p>
+                                                        @switch (item.Name)
+                                                        {
+                                                            case "Admin":
+                                                                <span>Full system access with all privileges</span>
+                                                                break;
+
+                                                            case "Employee":
+                                                                <span>Process loans and manage customers</span>
+                                                                break;
+
+                                                            default:
+                                                                <span>Role-specific permissions</span>
+                                                                break;
+                                                        }
+                                                    </p>
+                                                </div>
+                                                <div class="assign-role-check">
+                                                    <i class="fas fa-check-circle"></i>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <span asp-validation-for="RoleName" class="assign-error"></span>
+                                <small class="assign-hint">Select the appropriate role based on the user's responsibilities</small>
+                            </div>
+                        </div>
+
+                        <div class="assign-form-section">
+                            <div class="assign-summary">
+                                <div class="assign-summary-header">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Assignment Summary</span>
+                                </div>
+                                <div class="assign-summary-content">
+                                    <div class="assign-summary-item">
+                                        <span class="assign-summary-label">User:</span>
+                                        <span class="assign-summary-value" id="summaryUser">Not selected</span>
+                                    </div>
+                                    <div class="assign-summary-item">
+                                        <span class="assign-summary-label">Role:</span>
+                                        <span class="assign-summary-value" id="summaryRole">Not selected</span>
+                                    </div>
+                                    <div class="assign-summary-note">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span>This action will override any existing role assignments for this user</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="assign-form-actions">
+                            <button type="reset" class="assign-btn assign-btn-outline">
+                                <i class="fas fa-undo"></i>
+                                <span>Reset Form</span>
+                            </button>
+
+                            <button type="submit" class="assign-btn assign-btn-primary">
+                                <i class="fas fa-user-shield"></i>
+                                <span>Assign Role</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="assign-help-card">
+                <div class="assign-help-header">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>About Role Assignment</h3>
+                </div>
+                <div class="assign-help-body">
+                    <p>Assigning roles to users determines what actions they can perform in the system. Each role comes with a specific set of permissions.</p>
+                    <div class="assign-help-section">
+                        <h4>Role Hierarchy</h4>
+                        <ul class="assign-help-list">
+                            <li><strong>Admin:</strong> Full system access with all privileges</li>
+                            <li><strong>Manager:</strong> Can manage users, loans, and view reports</li>
+                            <li><strong>Employee:</strong> Can process loans and manage customers</li>
+                            <li><strong>Customer:</strong> Can view own loans and make payments</li>
+                        </ul>
+                    </div>
+                    <div class="assign-help-section">
+                        <h4>Best Practices</h4>
+                        <ul class="assign-help-list">
+                            <li>Assign the least privileged role necessary for the user's job function</li>
+                            <li>Regularly review role assignments to ensure they remain appropriate</li>
+                            <li>Remove unnecessary access when a user changes responsibilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Footer would be here -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2
+            $('.user-select').select2({
+                theme: "classic",
+                width: '100%',
+                placeholder: "Select a user",
+                allowClear: true
+            });
+
+            // User selection change
+            $('.user-select').on('change', function() {
+                const userId = $(this).val();
+                const userName = $(this).find('option:selected').text();
+
+                if (userId) {
+                    $('#previewName').text(userName);
+                    $('#previewEmail').text('user@example.com'); 
+                    $('#summaryUser').text(userName);
+                    $('.assign-user-preview').addClass('active');
+                } else {
+                    $('#previewName').text('No user selected');
+                    $('#previewEmail').text('Please select a user from the dropdown');
+                    $('#summaryUser').text('Not selected');
+                    $('.assign-user-preview').removeClass('active');
+                }
+            });
+
+            // Role selection change
+            $('input[name="RoleName"]').on('change', function() {
+                const roleName = $(this).val();
+                $('#summaryRole').text(roleName);
+            });
+
+            // Form validation
+            $('.assign-form').on('submit', function(e) {
+                let isValid = true;
+
+                // Check user selection
+                if (!$('.user-select').val()) {
+                    isValid = false;
+                    $('.user-select').next('.select2-container').addClass('is-invalid');
+                    $('.user-select').closest('.assign-form-group').find('.assign-error').text('Please select a user');
+                } else {
+                    $('.user-select').next('.select2-container').removeClass('is-invalid');
+                    $('.user-select').closest('.assign-form-group').find('.assign-error').text('');
+                }
+
+                // Check role selection
+                if (!$('input[name="RoleName"]:checked').val()) {
+                    isValid = false;
+                    $('.assign-role-options').addClass('is-invalid');
+                    $('input[name="RoleName"]').closest('.assign-form-group').find('.assign-error').text('Please select a role');
+                } else {
+                    $('.assign-role-options').removeClass('is-invalid');
+                    $('input[name="RoleName"]').closest('.assign-form-group').find('.assign-error').text('');
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+
+            // Reset form
+            $('button[type="reset"]').on('click', function() {
+                $('.user-select').val('').trigger('change');
+                $('input[name="RoleName"]').prop('checked', false);
+                $('#summaryRole').text('Not selected');
+                $('.assign-error').text('');
+                $('.is-invalid').removeClass('is-invalid');
+            });
+        });
+    </script>
+</body>
+</html>
+
+

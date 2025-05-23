@@ -15,7 +15,11 @@ namespace Credit_Management_System.Repositories.Implementations
         public async Task<IEnumerable<Payment>> GetAllWithLoansAsync()
         {
             return await _context.Payments.Include(c => c.Loan)
-                 .ToListAsync();
+                .ThenInclude(c => c.Customer)
+                    .Include(c => c.Loan.Employee)
+                    .Where(c => !c.IsDeleted)
+                    .ToListAsync();
+                
         }
 
         public async Task<Payment?> GetByIdWithLoanAsync(int id)

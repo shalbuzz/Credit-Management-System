@@ -2,45 +2,162 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="main-content px-4 py-5" style="margin-left: 250px;">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-primary">Credit Management System</h1>
-        <p class="lead text-muted">Manage loans, customers, products, and payments in one powerful system.</p>
-    </div>
+<!-- Page Content -->
 
-    <div class="row g-4">
-        <div class="col-md-6">
-            <div class="card shadow-sm" style="height: 200px;">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h2 class="card-title">Customer Management</h2>
-                    <p class="card-text">Add, edit, and view customers. Track their loans and payment history.</p>
+<div id="content">
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <button type="button" id="sidebarCollapse" class="btn d-md-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="ms-auto d-flex align-items-center">
+                <div class="search-container me-3">
+                    <div class="position-relative">
+                        <i class="fas fa-search position-absolute search-icon"></i>
+                        <input type="text" class="form-control search-input" placeholder="Search...">
+                    </div>
+                </div>
+
+                <div class="notification-container me-3">
+                    <button class="btn position-relative notification-btn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                            3
+                        </span>
+                    </button>
+                </div>
+
+                <div class="user-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4042/4042171.png" alt="User" class="rounded user-avatar">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container-fluid px-4 py-4">
+        <div class="dashboard-header mb-4">
+            <h1 class="fw-normal mb-0">Credit Management System</h1>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-users text-primary me-2"></i>
+                            <h6 class="mb-0">Active Loans</h6>
+                        </div>
+                        <h2 class="fw-bold mb-2">842</h2>
+                        <p class="text-success small mb-2">
+                            <i class="fas fa-arrow-up me-1"></i>12% from last month
+                        </p>
+                        <a href="#" class="btn-link">View active loans</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-box text-primary me-2"></i>
+                            <h6 class="mb-0">Total Products</h6>
+                        </div>
+                        <h2 class="fw-bold mb-2">156</h2>
+                        <p class="text-success small mb-2">
+                            <i class="fas fa-plus me-1"></i>4 new this month
+                        </p>
+                        <a href="#" class="btn-link">Manage products</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-dollar-sign text-primary me-2"></i>
+                            <h6 class="mb-0">Revenue</h6>
+                        </div>
+                        <h2 class="fw-bold mb-2">$24,685</h2>
+                        <p class="text-success small mb-2">
+                            <i class="fas fa-arrow-up me-1"></i>8.2% from last month
+                        </p>
+                        <a href="#" class="btn-link">View financial reports</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card shadow-sm" style="height: 200px;">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h2 class="card-title">Products & Categories</h2>
-                    <p class="card-text">Create and manage loan products and assign them to categories.</p>
+        <!-- Dashboard Content -->
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">Recent Loan Applications</h5>
+                        </div>
+                        <p class="text-muted small mb-4">You have 6 new loan applications this week</p>
+
+                        <div class="loan-applications">
+                            <div class="loan-application-item">
+                                <div>
+                                    <p class="fw-medium mb-1">Customer #1001</p>
+                                    <p class="text-muted small mb-0">Applied for: Home Improvement Loan</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary">Decline</button>
+                                    <button class="btn btn-sm btn-primary">Approve</button>
+                                </div>
+                            </div>
+
+                            <div class="loan-application-item">
+                                <div>
+                                    <p class="fw-medium mb-1">Customer #1002</p>
+                                    <p class="text-muted small mb-0">Applied for: Business Loan</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary">Decline</button>
+                                    <button class="btn btn-sm btn-primary">Approve</button>
+                                </div>
+                            </div>
+
+                            <div class="loan-application-item border-0 pb-0">
+                                <div>
+                                    <p class="fw-medium mb-1">Customer #1003</p>
+                                    <p class="text-muted small mb-0">Applied for: Education Loan</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary">Decline</button>
+                                    <button class="btn btn-sm btn-primary">Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="card shadow-sm" style="height: 200px;">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h2 class="card-title">Loan Processing</h2>
-                    <p class="card-text">Create new loans, add loan items, and define repayment conditions.</p>
-                </div>
-            </div>
-        </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">Payment Analytics</h5>
+                        </div>
+                        <p class="text-muted small mb-4">Monthly payment collection overview</p>
 
-        <div class="col-md-6">
-            <div class="card shadow-sm" style="height: 200px;">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h2 class="card-title">Payment Tracking</h2>
-                    <p class="card-text">Record payments, monitor balances, and ensure timely repayments.</p>
+                        <div class="d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                            <div class="text-center">
+                                <i class="fas fa-chart-bar text-muted fa-4x mb-3"></i>
+                                <p class="text-muted">Analytics chart will appear here</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

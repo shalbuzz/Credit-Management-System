@@ -1,10 +1,12 @@
 using Credit_Management_System.Data;
 using Credit_Management_System.Extensions;
+using Credit_Management_System.Models;
 using Credit_Management_System.Profiles;
 using Credit_Management_System.Repositories.Implementations;
 using Credit_Management_System.Repositories.Interfaces;
 using Credit_Management_System.Services.Implementations;
 using Credit_Management_System.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -20,6 +22,10 @@ namespace Credit_Management_System
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnStr")));
+
+            builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -45,12 +51,13 @@ namespace Credit_Management_System
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "areas",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+       name: "areas",
+       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 
             app.MapControllerRoute(
                 name: "default",

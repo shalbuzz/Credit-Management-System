@@ -55,7 +55,7 @@ namespace Credit_Management_System.Services.Implementations
 
         public async Task<LoanItemDetailsVM?> GetByIdWithLoanAndProductAsync(int id)
         {
-           var data = _loanItemRepository.GetByIdAsync(id);
+            var data = await _loanItemRepository.GetLoanItemWithProductAsync(id); 
             if (data == null)
             {
                 return null;

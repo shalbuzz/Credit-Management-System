@@ -2,12 +2,16 @@
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Payment;
 using Credit_Management_System.ViewModels.PaymentVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
@@ -42,7 +46,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var loans = await _loanService.GetAllAsync();
+            var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
             var model = new PaymentCreateVM
             {
                 Loans = loans.Select(m => new SelectListItem
@@ -61,7 +65,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
+                var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
                 payment.Loans = loans.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
@@ -87,7 +91,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loans = await _loanService.GetAllAsync();
+            var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
             ViewBag.Loans = loans.Select(m => new SelectListItem
             {
                 Value = m.Id.ToString(),
@@ -103,7 +107,7 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
+                var loans = await _loanService.GetLoansWithCustomerAndEmployeeAsync();
                 payment.Loans = loans.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),

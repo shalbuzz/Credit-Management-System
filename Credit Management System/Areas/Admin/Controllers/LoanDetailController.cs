@@ -2,12 +2,16 @@
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.LoanDetail;
 using Credit_Management_System.ViewModels.LoanDetailVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin,Employee")]
+
     public class LoanDetailController : Controller
     {
         private readonly ILoanDetailService _loanDetailService;
@@ -37,56 +41,49 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var loans = await _loanService.GetAllAsync();
+            var loans = await _loanService.GetAvailableLoansForLoanDetailAsync();
             var model = new LoanDetailCreateVM
             {
-                Loans = loans.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.CustomerName
-                }).ToList()
+                Loans = loans
             };
             return View(model);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LoanDetailCreateVM loanDetail)
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
-                loanDetail.Loans = loans.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.CustomerName
-                }).ToList();
-
+                loanDetail.Loans = await _loanService.GetAvailableLoansForLoanDetailAsync();
                 return View(loanDetail);
             }
-               
+
+            var loanExists = await _loanService.ExistsAsync(loanDetail.LoanId);
+            if (!loanExists)
+            {
+                ModelState.AddModelError("LoanId", "Deleted.");
+                loanDetail.Loans = await _loanService.GetAvailableLoansForLoanDetailAsync();
+                return View(loanDetail);
+            }
 
             await _loanDetailService.CreateWithLoansAsync(loanDetail);
             TempData["Success"] = "LoanDetail created successfully!";
             return RedirectToAction(nameof(Index));
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var detail = await _loanDetailService.GetByIdVMWithLoansAndPaymentsAsync(id);
-            if (detail == null) { TempData["Error"] = "LoanDetail not found."; return NotFound(); }
-            var loans = await _loanService.GetAllAsync();
-            var model = new LoanDetailUpdateVM
+            if (detail == null)
             {
-                Loans = loans.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.CustomerName
-                }).ToList()
-            };
-            
+                TempData["Error"] = "LoanDetail not found.";
+                return NotFound();
+            }
+
             return View(detail);
         }
 
@@ -96,21 +93,23 @@ namespace Credit_Management_System.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var loans = await _loanService.GetAllAsync();
-                loanDetail.Loans = loans.Select(m => new SelectListItem
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.CustomerName
-                }).ToList();
-
                 return View(loanDetail);
             }
-                
 
-            await _loanDetailService.UpdateWithLoansAsync(loanDetail);
-            TempData["Success"] = "LoanDetail updated successfully!";
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _loanDetailService.UpdateWithLoansAsync(loanDetail);
+                TempData["Success"] = "LoanDetail updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(loanDetail);
+            }
         }
+
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

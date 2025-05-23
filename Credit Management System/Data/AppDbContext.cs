@@ -1,9 +1,10 @@
 ﻿using Credit_Management_System.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Credit_Management_System.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -22,9 +23,13 @@ namespace Credit_Management_System.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+           
 
             base.OnModelCreating(modelBuilder);
+
+         
         }
+
 
     }
   

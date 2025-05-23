@@ -4,54 +4,197 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Branch - Credit Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
-<h4>BranchCreateVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+    <link rel="stylesheet" href="~/assets/adminLayout/data-table.css">
+
+</head>
+<body class="admin-body">
+    <!-- Admin Navbar would be here -->
+    <!-- Main Content -->
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-title">
+                <h1>Create New Branch</h1>
+                <p>Add a new branch location to the system</p>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+
+            <div class="form-actions">
+                <a asp-action="Index" class="form-btn form-btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to List</span>
+                </a>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-card">
+            <div class="form-card-body">
+                <div class="form-steps">
+                    <div class="form-step active">
+                        <div class="form-step-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="form-step-content">
+                            <span>Branch Details</span>
+                        </div>
+                    </div>
+                    <div class="form-step-connector"></div>
+                    <div class="form-step">
+                        <div class="form-step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="form-step-content">
+                            <span>Confirmation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Create" class="form-main">
+                    <div asp-validation-summary="ModelOnly" class="form-error-summary">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Please correct the following errors:</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label">
+                                <i class="fas fa-signature"></i>
+                                <span>Branch Name</span>
+                            </label>
+                            <div class="form-input-container">
+                                <input asp-for="Name" class="form-input" placeholder="Enter branch name" />
+                            </div>
+                            <span asp-validation-for="Name" class="form-error"></span>
+                            <small class="form-hint">Enter the official name of the branch</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="MerchantId" class="form-label">
+                                <i class="fas fa-store"></i>
+                                <span>Merchant</span>
+                            </label>
+                            <div class="form-select-container">
+                                <select asp-for="MerchantId" class="form-select" asp-items="Model.Merchants">
+                                    <option value="">-- Select Merchant --</option>
+                                </select>
+                                <i class="fas fa-chevron-down form-select-arrow"></i>
+                            </div>
+                            <span asp-validation-for="MerchantId" class="form-error"></span>
+                            <small class="form-hint">Select the merchant this branch belongs to</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Address" class="form-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Address</span>
+                        </label>
+                        <div class="form-input-container">
+                            <input asp-for="Address" class="form-input" placeholder="Enter full address" />
+                        </div>
+                        <span asp-validation-for="Address" class="form-error"></span>
+                        <small class="form-hint">Enter the complete physical address of the branch</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="form-label">
+                                <i class="fas fa-phone"></i>
+                                <span>Phone Number</span>
+                            </label>
+                            <div class="form-input-container">
+                                <input asp-for="PhoneNumber" class="form-input" placeholder="Enter phone number" />
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="form-error"></span>
+                            <small class="form-hint">Include country and area code if applicable</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Address</span>
+                            </label>
+                            <div class="form-input-container">
+                                <input asp-for="Email" class="form-input" placeholder="Enter email address" type="email" />
+                            </div>
+                            <span asp-validation-for="Email" class="form-error"></span>
+                            <small class="form-hint">Official contact email for this branch</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">
+                            <i class="fas fa-align-left"></i>
+                            <span>Description</span>
+                        </label>
+                        <div class="form-textarea-container">
+                            <textarea asp-for="Description" class="form-textarea" placeholder="Enter branch description" rows="4"></textarea>
+                        </div>
+                        <span asp-validation-for="Description" class="form-error"></span>
+                        <small class="form-hint">Provide additional details about this branch (optional)</small>
+                    </div>
+
+                    <div class="form-divider">
+                        <span>Review and Submit</span>
+                    </div>
+
+                    <div class="form-actions-bottom">
+                        <button type="reset" class="form-btn form-btn-outline">
+                            <i class="fas fa-undo"></i>
+                            <span>Reset Form</span>
+                        </button>
+
+                        <button type="submit" class="form-btn form-btn-primary">
+                            <i class="fas fa-save"></i>
+                            <span>Create Branch</span>
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-help-card">
+            <div class="form-help-header">
+                <i class="fas fa-info-circle"></i>
+                <h3>Adding a New Branch</h3>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-help-body">
+                <p>When adding a new branch, please ensure you provide accurate contact information. This information will be used for official communications and customer inquiries.</p>
+                <ul class="form-help-list">
+                    <li><strong>Branch Name:</strong> The official name of the branch location</li>
+                    <li><strong>Merchant:</strong> The parent merchant this branch belongs to</li>
+                    <li><strong>Address:</strong> The complete physical address including street, city, and postal code</li>
+                    <li><strong>Contact Info:</strong> Official phone number and email address for this branch</li>
+                </ul>
+                <p>All fields marked with an asterisk (*) are required.</p>
             </div>
-            <div class="form-group">
-                <label asp-for="MerchantId" class="control-label"></label>
-                <select asp-for="MerchantId" class="form-control" asp-items="Model.Merchants">
-                    <option value="">-- Select Merchant --</option>
-                </select>
-                <span asp-validation-for="MerchantId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <!-- Admin Footer would be here -->
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (обязателен для Toastr) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+</html>

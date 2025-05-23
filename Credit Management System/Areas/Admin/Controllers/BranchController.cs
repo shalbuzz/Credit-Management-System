@@ -2,6 +2,7 @@
 using Credit_Management_System.Services.Implementations;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Branch;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Admin")]
     public class BranchController : Controller
     {
         private readonly IBranchService _branchService;

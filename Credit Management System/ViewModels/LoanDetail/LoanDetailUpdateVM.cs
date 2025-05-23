@@ -7,9 +7,9 @@ namespace Credit_Management_System.ViewModels.LoanDetail
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Total amount is required.")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Total amount must be greater than zero.")]
-        public decimal TotalAmount { get; set; }
+        [Required(ErrorMessage = "Amount is required.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
+        public decimal Amount { get; set; }
 
         [Required(ErrorMessage = "Interest rate is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Interest rate must be greater than zero.")]
@@ -28,10 +28,9 @@ namespace Credit_Management_System.ViewModels.LoanDetail
         [Required(ErrorMessage = "Current debt is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Current debt must be greater than zero.")]
         public decimal CurrentDebt { get; set; }
-
-        [Required(ErrorMessage = "Loan selection is required.")]
+        [Required]
         public int LoanId { get; set; }
 
-        public List<SelectListItem> Loans { get; set; } = new List<SelectListItem>();
+
     }
 }

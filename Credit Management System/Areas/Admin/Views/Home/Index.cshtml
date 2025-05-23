@@ -1,106 +1,321 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+@{
     ViewData["Title"] = "Administrator Panel";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+    var user = UserManager.GetUserAsync(User).Result;
+    var roles = user != null ? UserManager.GetRolesAsync(user).Result : new List<string>();
+
+    bool isAdmin = roles.Contains("Admin");
+    bool isEmployee = roles.Contains("Employee");
 }
 
-<div class="container-fluid py-4">
-    <div class="row mb-4">
-        <div class="col">
-            <h2 class="fw-bold text-primary">Welcome to the Admin Panel</h2>
-            <p class="text-muted">Here you can manage categories, products, users, and view reports.</p>
+<div class="admin-dashboard">
+    <div class="admin-dashboard-header">
+        <div class="admin-dashboard-title">
+            <h2>Welcome to the Admin Panel</h2>
+            <p>Manage your entire credit system from one central location</p>
+        </div>
+
+        <div class="admin-dashboard-stats">
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="admin-stat-content">
+                    <h3>1,248</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="admin-stat-content">
+                    <h3>842</h3>
+                    <p>Active Loans</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="admin-stat-content">
+                    <h3>$24,685</h3>
+                    <p>Monthly Revenue</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-list fa-2x text-info mb-2"></i>
-                    <h5 class="card-title">Categories</h5>
-                    <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="btn btn-outline-info btn-sm mt-2">Manage</a>
-                </div>
-            </div>
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <h3>Core Management</h3>
+            <p>Essential system management tools</p>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-boxes fa-2x text-success mb-2"></i>
-                    <h5 class="card-title">Products</h5>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-outline-success btn-sm mt-2">Manage</a>
+
+        <div class="admin-card-grid">
+            @* Категории - доступны admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(54, 162, 235, 0.1);">
+                        <i class="fas fa-list" style="color: #36a2eb;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Categories</h4>
+                        <p>Manage product categories and classifications</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #36a2eb;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
+
+            @* Продукты - доступны admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(75, 192, 192, 0.1);">
+                        <i class="fas fa-boxes" style="color: #4bc0c0;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Products</h4>
+                        <p>Manage products available for loans</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #4bc0c0;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @* Филиалы - только admin *@
+            @if (isAdmin)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(54, 162, 235, 0.1);">
+                        <i class="fas fa-building" style="color: #36a2eb;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Branches</h4>
+                        <p>Manage company branches and locations</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Branch" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #36a2eb;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @* Торговцы - только admin *@
+            @if (isAdmin)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(255, 159, 64, 0.1);">
+                        <i class="fas fa-store" style="color: #ff9f40;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Merchants</h4>
+                        <p>Manage partner merchants and vendors</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Merchant" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #ff9f40;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-building fa-2x text-primary mb-2"></i>
-                    <h5 class="card-title">Branches</h5>
-                    <a asp-area="Admin" asp-controller="Branch" asp-action="Index" class="btn btn-outline-primary btn-sm mt-2">Manage</a>
-                </div>
-            </div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <h3>User Management</h3>
+            <p>Manage system users and access control</p>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-users fa-2x text-warning mb-2"></i>
-                    <h5 class="card-title">Customers</h5>
-                    <a asp-area="Admin" asp-controller="Customer" asp-action="Index" class="btn btn-outline-warning btn-sm mt-2">Manage</a>
+
+        <div class="admin-card-grid">
+            @* Клиенты - admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(255, 159, 64, 0.1);">
+                        <i class="fas fa-users" style="color: #ff9f40;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Customers</h4>
+                        <p>Manage customer accounts and profiles</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Customer" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #ff9f40;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
+
+            @* Сотрудники - только admin *@
+            @if (isAdmin)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(153, 102, 255, 0.1);">
+                        <i class="fas fa-user-tie" style="color: #9966ff;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Employees</h4>
+                        <p>Manage staff and employee accounts</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Employee" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #9966ff;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @* Управление ролями - только admin *@
+            @if (isAdmin)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(54, 162, 235, 0.1);">
+                        <i class="fas fa-user-shield" style="color: #36a2eb;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Role Management</h4>
+                        <p>Configure system roles and permissions</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="RoleManagement" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #36a2eb;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @* Назначение ролей - только admin *@
+            @if (isAdmin)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(255, 159, 64, 0.1);">
+                        <i class="fas fa-user-tag" style="color: #ff9f40;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Assign Role</h4>
+                        <p>Assign roles to users and employees</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Account" asp-action="AssignRole" class="admin-btn admin-btn-outline" style="--btn-color: #ff9f40;">
+                            <span>Assign</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-user-tie fa-2x text-secondary mb-2"></i>
-                    <h5 class="card-title">Employees</h5>
-                    <a asp-area="Admin" asp-controller="Employee" asp-action="Index" class="btn btn-outline-secondary btn-sm mt-2">Manage</a>
-                </div>
-            </div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <h3>Loan Management</h3>
+            <p>Manage loans and payment processing</p>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-store fa-2x text-dark mb-2"></i>
-                    <h5 class="card-title">Merchants</h5>
-                    <a asp-area="Admin" asp-controller="Merchant" asp-action="Index" class="btn btn-outline-dark btn-sm mt-2">Manage</a>
+
+        <div class="admin-card-grid">
+            @* Кредиты - admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(75, 192, 192, 0.1);">
+                        <i class="fas fa-file-invoice-dollar" style="color: #4bc0c0;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Loans</h4>
+                        <p>Manage active and completed loans</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Loan" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #4bc0c0;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-file-invoice-dollar fa-2x text-success mb-2"></i>
-                    <h5 class="card-title">Loans</h5>
-                    <a asp-area="Admin" asp-controller="Loan" asp-action="Index" class="btn btn-outline-success btn-sm mt-2">Manage</a>
+            }
+
+            @* Элементы кредита - admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(54, 162, 235, 0.1);">
+                        <i class="fas fa-list-ol" style="color: #36a2eb;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Loan Items</h4>
+                        <p>Manage individual items in loans</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="LoanItem" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #36a2eb;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-list-ol fa-2x text-info mb-2"></i>
-                    <h5 class="card-title">Loan Items</h5>
-                    <a asp-area="Admin" asp-controller="LoanItem" asp-action="Index" class="btn btn-outline-info btn-sm mt-2">Manage</a>
+            }
+
+            @* Детали кредита - admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(54, 162, 235, 0.1);">
+                        <i class="fas fa-clipboard-list" style="color: #36a2eb;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Loan Details</h4>
+                        <p>View and manage loan specifications</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="LoanDetail" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #36a2eb;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-clipboard-list fa-2x text-primary mb-2"></i>
-                    <h5 class="card-title">Loan Details</h5>
-                    <a asp-area="Admin" asp-controller="LoanDetail" asp-action="Index" class="btn btn-outline-primary btn-sm mt-2">Manage</a>
+            }
+
+            @* Платежи - admin и employee *@
+            @if (isAdmin || isEmployee)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon" style="background-color: rgba(255, 206, 86, 0.1);">
+                        <i class="fas fa-credit-card" style="color: #ffce56;"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>Payments</h4>
+                        <p>Manage loan payments and transactions</p>
+                    </div>
+                    <div class="admin-card-action">
+                        <a asp-area="Admin" asp-controller="Payment" asp-action="Index" class="admin-btn admin-btn-outline" style="--btn-color: #ffce56;">
+                            <span>Manage</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center">
-                    <i class="fas fa-money-check-alt fa-2x text-danger mb-2"></i>
-                    <h5 class="card-title">Payments</h5>
-                    <a asp-area="Admin" asp-controller="Payment" asp-action="Index" class="btn btn-outline-danger btn-sm mt-2">Manage</a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>

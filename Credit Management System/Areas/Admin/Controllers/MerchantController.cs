@@ -1,11 +1,14 @@
 ﻿using Credit_Management_System.Data;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Merchant;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class MerchantController : Controller
     {
         private readonly IMerchantService _merchantService;

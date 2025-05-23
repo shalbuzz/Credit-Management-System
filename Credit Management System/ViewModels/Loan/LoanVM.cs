@@ -11,6 +11,8 @@
 
         public string EmployeeName { get; set; }
         public string CustomerName { get; set; }
+        public int CustomerId { get; set; }
+
 
 
 

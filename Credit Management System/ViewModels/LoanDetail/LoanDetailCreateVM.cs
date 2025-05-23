@@ -5,9 +5,10 @@ namespace Credit_Management_System.ViewModels.LoanDetail
 {
     public class LoanDetailCreateVM
     {
-        [Required(ErrorMessage = "Total amount is required.")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Total amount must be greater than zero.")]
-        public decimal TotalAmount { get; set; }
+        [Required(ErrorMessage = "Amount is required.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
+        public decimal Amount { get; set; }
+
 
         [Required(ErrorMessage = "Interest rate is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Interest rate must be greater than zero.")]

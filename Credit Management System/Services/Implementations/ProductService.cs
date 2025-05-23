@@ -108,6 +108,7 @@ namespace Credit_Management_System.Services.Implementations
                 return null;
 
             var product = await _productRepository.GetByIdAsync(updateVM.Id);
+            updateVM.ImageUrl = product.ImageUrl; 
             if (product == null)
                 return null;
 

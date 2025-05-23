@@ -4,76 +4,198 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Data - Credit Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/assets/adminLayout/data-table.css">
+    
+</head>
+<body class="admin-body">
+    <!-- Admin Navbar would be here -->
+    <!-- Main Content -->
+    <div class="data-container">
+        <div class="data-header">
+            <div class="data-title">
+                <h1>Manage Branches</h1>
+                <p>View and manage all branch locations in the system</p>
+            </div>
 
-<p>
-    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-secondary mb-3">
-        <i class="fas fa-home"></i> HomePage
-    </a>
-</p>
+            <div class="data-actions">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="data-btn data-btn-secondary">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-              Id
-            </th>
-            <th>
-               Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                PhoneNumber
-            </th>
-            <th>
-               Email
-            </th>
-            <th>
-               Description
-            </th>
-            <th>
-                MerchantName
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MerchantName)
-            </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { area = "Admin", id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { area = "Admin", id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { area = "Admin", id = item.Id })
-                </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <div class="data-toolbar">
+            <div class="data-search">
+                <div class="data-search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search branches..." id="tableSearch">
+                </div>
+            </div>
+
+            <div class="data-toolbar-actions">
+                <div class="data-filter">
+                    <button class="data-btn data-btn-outline">
+                        <i class="fas fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
+                </div>
+
+                <a asp-action="Create" class="data-btn data-btn-primary">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Branch</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="data-card">
+            <div class="data-table-container">
+                <table class="data-table" id="branchesTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="id">
+                                <div class="data-th-content">
+                                    <span>ID</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th class="sortable" data-sort="name">
+                                <div class="data-th-content">
+                                    <span>Branch Name</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th class="sortable" data-sort="address">
+                                <div class="data-th-content">
+                                    <span>Address</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th class="sortable" data-sort="phone">
+                                <div class="data-th-content">
+                                    <span>Phone Number</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th class="sortable" data-sort="email">
+                                <div class="data-th-content">
+                                    <span>Email</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="data-th-content">
+                                    <span>Description</span>
+                                </div>
+                            </th>
+                            <th class="sortable" data-sort="merchant">
+                                <div class="data-th-content">
+                                    <span>Merchant</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="data-th-content">
+                                    <span>Actions</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="data-id">@Html.DisplayFor(modelItem => item.Id)</div>
+                                </td>
+                                <td>
+                                    <div class="data-name">@Html.DisplayFor(modelItem => item.Name)</div>
+                                </td>
+                                <td>
+                                    <div class="data-address">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>@Html.DisplayFor(modelItem => item.Address)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="data-phone">
+                                        <i class="fas fa-phone"></i>
+                                        <span>@Html.DisplayFor(modelItem => item.PhoneNumber)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="data-email">
+                                        <i class="fas fa-envelope"></i>
+                                        <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="data-description">
+                                        <span class="data-truncate">@Html.DisplayFor(modelItem => item.Description)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="data-merchant">
+                                        <span class="data-badge">@Html.DisplayFor(modelItem => item.MerchantName)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="data-actions-cell">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="data-action-btn data-edit" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="data-action-btn data-details" title="Details">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="data-action-btn data-delete" title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="data-pagination">
+                <div class="data-pagination-info">
+                    <span>Showing <strong>1-10</strong> of <strong>24</strong> items</span>
+                </div>
+
+                <div class="data-pagination-controls">
+                    <button class="data-pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="data-pagination-btn data-pagination-active">1</button>
+                    <button class="data-pagination-btn">2</button>
+                    <button class="data-pagination-btn">3</button>
+                    <button class="data-pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Footer would be here -->
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data-table.js"></script>
+</body>
+</html>
