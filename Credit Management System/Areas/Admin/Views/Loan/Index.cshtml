@@ -1,4 +1,5 @@
-﻿@model List<Credit_Management_System.ViewModels.LoanVM.LoanVM>
+﻿@using Credit_Management_System.Enums
+@model List<Credit_Management_System.ViewModels.LoanVM.LoanVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -104,6 +105,12 @@
                                     <i class="fas fa-sort"></i>
                                 </div>
                             </th>
+                            <th class="sortable" data-sort="status">
+                                <div class="data-th-content">
+                                    <span>Status</span>
+                                    <i class="fas fa-sort"></i>
+                                </div>
+                            </th>
                             <th class="sortable" data-sort="employee">
                                 <div class="data-th-content">
                                     <span>Employee</span>
@@ -146,6 +153,21 @@
                                     <div class="data-enddate">@Html.DisplayFor(modelItem => item.EndDate)</div>
                                 </td>
                                 <td>
+                                    @switch (item.StatusForLoan)
+                                    {
+                                        case LoanStatus.Pending:
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                            break;
+                                        case LoanStatus.Approved:
+                                            <span class="badge bg-success">Approved</span>
+                                            break;
+                                        case LoanStatus.Rejected:
+                                            <span class="badge bg-danger">Rejected</span>
+                                            break;
+                                    }
+                                </td>
+
+                                <td>
                                     <div class="data-employee">
                                         <span class="data-badge">@Html.DisplayFor(modelItem => item.EmployeeName)</span>
                                     </div>
@@ -156,7 +178,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @await Component.InvokeAsync("LoanSummary", new { customerId = item.CustomerId })
+                                    @await Component.InvokeAsync("TotalLoanDebt", new { customerId = item.CustomerId })
                                 </td>
 
                                 <td>

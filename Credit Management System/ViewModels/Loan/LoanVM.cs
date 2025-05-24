@@ -1,4 +1,7 @@
-﻿namespace Credit_Management_System.ViewModels.LoanVM
+﻿using Credit_Management_System.Enums;
+using Credit_Management_System.Models;
+
+namespace Credit_Management_System.ViewModels.LoanVM
 {
     public class LoanVM
     {
@@ -13,8 +16,8 @@
         public string CustomerName { get; set; }
         public int CustomerId { get; set; }
 
-
-
-
+        public LoanStatus StatusForLoan { get; set; }
     }
+    
+
 }

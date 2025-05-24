@@ -13,7 +13,7 @@ namespace Credit_Management_System.Services.Interfaces
         Task<IEnumerable<LoanVM>> GetLoansByEmployeeIdAsync(int employeeId);
 
         Task<LoanCreateVM> CreateVMAsync(LoanCreateVM loanCreateVM);
-        Task<LoanUpdateVM> UpdateVMAsync(LoanUpdateVM loanUpdateVM);
+        Task<LoanUpdateVM> UpdateVMAsync(LoanUpdateVM loanUpdateVM, string userRole);
         Task<LoanDetailsVM> GetLoanDetailsAsync(int id);
         Task<LoanUpdateVM?> GetLoanDetailsVMByCustomerIdAsync(int id);
         Task<List<SelectListItem>> GetAvailableLoansForLoanDetailAsync();

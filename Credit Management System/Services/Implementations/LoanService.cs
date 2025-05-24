@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Credit_Management_System.Enums;
 using Credit_Management_System.Models;
 using Credit_Management_System.Repositories.Interfaces;
 using Credit_Management_System.Services.Interfaces;
@@ -57,9 +58,42 @@ namespace Credit_Management_System.Services.Implementations
            return loanCreateVM == null ? null : _mapper.Map<LoanCreateVM>(await _loanRepository.AddAsync(_mapper.Map<Loan>(loanCreateVM)));
         }
 
-        public async Task<LoanUpdateVM> UpdateVMAsync(LoanUpdateVM loanUpdateVM)
+        public async Task<LoanUpdateVM> UpdateVMAsync(LoanUpdateVM loanUpdateVM, string userRole)
         {
-           return loanUpdateVM == null ? null : _mapper.Map<LoanUpdateVM>(await _loanRepository.UpdateAsync(_mapper.Map<Loan>(loanUpdateVM)));
+            if (loanUpdateVM == null)
+                return null;
+
+            var existingLoan = await _loanRepository.GetByIdAsync(loanUpdateVM.Id);
+            if (existingLoan == null)
+                return null;
+
+            bool canChangeStatus = false;
+
+            if (userRole == "Admin")
+            {
+                canChangeStatus = true; 
+            }
+            else if (userRole == "Employee")
+            {
+                if (existingLoan.StatusForLoan == LoanStatus.Pending)
+                    canChangeStatus = true;
+            }
+
+            if (!canChangeStatus && existingLoan.StatusForLoan != loanUpdateVM.StatusForLoan)
+            {
+                throw new UnauthorizedAccessException("You do not have permission to change the loan status.");
+            }
+
+            var loanToUpdate = _mapper.Map<Loan>(loanUpdateVM);
+
+            if (!canChangeStatus)
+            {
+                loanToUpdate.StatusForLoan = existingLoan.StatusForLoan; 
+            }
+
+            var updatedLoan = await _loanRepository.UpdateAsync(loanToUpdate);
+
+            return _mapper.Map<LoanUpdateVM>(updatedLoan);
         }
 
         public async Task<LoanDetailsVM> GetLoanDetailsAsync(int id)

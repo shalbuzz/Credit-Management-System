@@ -1,17 +1,17 @@
 ﻿using Credit_Management_System.Data;
+using Credit_Management_System.Enums;
 using Credit_Management_System.Services.Interfaces;
 using Credit_Management_System.ViewModels.Loan;
 using Credit_Management_System.ViewModels.LoanVM;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace Credit_Management_System.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
     [Authorize(Roles = "Admin,Employee")]
-
     public class LoanController : Controller
     {
         private readonly ILoanService _loanService;
@@ -62,7 +62,21 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                 {
                     Value = m.Id.ToString(),
                     Text = m.FullName
-                }).ToList()
+                }).ToList(),
+
+                // Заполняем список статусов для dropdown
+                StatusList = Enum.GetValues(typeof(LoanStatus))
+                    .Cast<LoanStatus>()
+                    .Select(s => new SelectListItem
+                    {
+                        Text = s.ToString(),
+                        Value = ((int)s).ToString(),
+                        Selected = s == LoanStatus.Pending // по умолчанию Pending
+                    })
+                    .ToList(),
+
+                // По умолчанию статус
+                StatusForLoan = LoanStatus.Pending
             };
 
             return View(model);
@@ -89,7 +103,23 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                     Text = m.FullName
                 }).ToList();
 
+                loan.StatusList = Enum.GetValues(typeof(LoanStatus))
+                    .Cast<LoanStatus>()
+                    .Select(s => new SelectListItem
+                    {
+                        Text = s.ToString(),
+                        Value = ((int)s).ToString(),
+                        Selected = s == loan.StatusForLoan
+                    })
+                    .ToList();
+
                 return View(loan);
+            }
+
+            // Если в модели нет статуса — выставляем по умолчанию Pending
+            if (!Enum.IsDefined(typeof(LoanStatus), loan.StatusForLoan))
+            {
+                loan.StatusForLoan = LoanStatus.Pending;
             }
 
             bool canTakeLoan = await _loanService.CanCustomerTakeLoanAsync(loan.CustomerId, loan.Amount);
@@ -130,6 +160,16 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                 Text = m.FullName
             }).ToList();
 
+            loan.StatusList = Enum.GetValues(typeof(LoanStatus))
+                .Cast<LoanStatus>()
+                .Select(s => new SelectListItem
+                {
+                    Text = s.ToString(),
+                    Value = ((int)s).ToString(),
+                    Selected = s == loan.StatusForLoan
+                })
+                .ToList();
+
             return View(loan);
         }
 
@@ -154,10 +194,24 @@ namespace Credit_Management_System.Areas.Admin.Controllers
                     Text = m.FullName
                 }).ToList();
 
+                loan.StatusList = Enum.GetValues(typeof(LoanStatus))
+                    .Cast<LoanStatus>()
+                    .Select(s => new SelectListItem
+                    {
+                        Text = s.ToString(),
+                        Value = ((int)s).ToString(),
+                        Selected = s == loan.StatusForLoan
+                    })
+                    .ToList();
+
                 return View(loan);
             }
 
-            await _loanService.UpdateVMAsync(loan);
+            var userRole = User.IsInRole("Admin") ? "Admin" : "Employee";
+
+
+            await _loanService.UpdateVMAsync(loan, userRole);
+
             TempData["Success"] = "Loan updated successfully!";
             return RedirectToAction(nameof(Index));
         }
@@ -184,6 +238,4 @@ namespace Credit_Management_System.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-
-
 }

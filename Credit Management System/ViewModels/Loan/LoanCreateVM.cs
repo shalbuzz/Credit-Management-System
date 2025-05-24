@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Credit_Management_System.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Credit_Management_System.ViewModels.Loan
@@ -37,5 +38,8 @@ namespace Credit_Management_System.ViewModels.Loan
 
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Employees { get; set; } = new List<SelectListItem>();
+        public LoanStatus StatusForLoan { get; set; }
+        public List<SelectListItem> StatusList { get; set; } = new List<SelectListItem>();
+
     }
 }

@@ -200,34 +200,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="details-info-section">
-                            <h3>
-                                <i class="fas fa-building"></i>
-                                <span>Branches</span>
-                            </h3>
-
-                            <div class="details-info-grid">
-                                @if (Model.Branches == null || !Model.Branches.Any())
-                                {
-                                    <div class="details-info-item details-info-item-full">
-                                        <div class="details-info-value details-empty">No branches associated</div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    @foreach (var branch in Model.Branches)
-                                    {
-                                        <div class="details-info-item">
-                                            <div class="details-info-label">Branch</div>
-                                            <div class="details-info-value">
-                                                <span class="details-badge">@branch.Name</span>
-                                            </div>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

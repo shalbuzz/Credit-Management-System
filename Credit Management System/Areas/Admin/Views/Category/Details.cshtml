@@ -195,36 +195,7 @@
                             </div>
                         </div>
 
-                        <div class="details-info-section">
-                            <h3>
-                                <i class="fas fa-boxes"></i>
-                                <span>Associated Products</span>
-                            </h3>
-
-                            <div class="details-info-grid">
-                                <div class="details-info-item details-info-item-full">
-                                    <div class="details-info-label">Products List</div>
-                                    <div class="details-info-value">
-                                        @if (Model.Products == null || !Model.Products.Any())
-                                        {
-                                            <span class="details-empty">No products associated with this category</span>
-                                        }
-                                        else
-                                        {
-                                            <div class="details-products-list">
-                                                @foreach (var product in Model.Products)
-                                                {
-                                                    <span class="details-product-tag">
-                                                        <i class="fas fa-box"></i>
-                                                        @product.Name
-                                                    </span>
-                                                }
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                
                     </div>
                 </div>
 
