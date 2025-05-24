@@ -26,10 +26,6 @@ namespace Credit_Management_System.ViewModels.Loan
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [Required(ErrorMessage = "Status is required.")]
-        [StringLength(20, ErrorMessage = "Status cannot exceed 20 characters.")]
-        public string Status { get; set; }
-
         [Required(ErrorMessage = "Customer selection is required.")]
         public int CustomerId { get; set; }
 
@@ -38,6 +34,9 @@ namespace Credit_Management_System.ViewModels.Loan
 
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Employees { get; set; } = new List<SelectListItem>();
+
+        [Display(Name = "Status for Loan")]
+        [Required(ErrorMessage = "Status is required.")]
         public LoanStatus StatusForLoan { get; set; }
         public List<SelectListItem> StatusList { get; set; } = new List<SelectListItem>();
 

@@ -30,7 +30,7 @@ namespace Credit_Management_System.Configurations
             builder.Property(l => l.EndDate)
                    .IsRequired();
 
-            builder.Property(l => l.Status)
+            builder.Property(l => l.StatusForLoan)
                    .HasMaxLength(50);
 
             builder.HasOne(l => l.Customer)

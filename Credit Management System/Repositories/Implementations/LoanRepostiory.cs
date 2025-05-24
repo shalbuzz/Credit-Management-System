@@ -72,17 +72,20 @@ namespace Credit_Management_System.Repositories.Implementations
 
         public async Task<decimal> GetTotalDebtByCustomerIdAsync(int customerId)
         {
-            var loans = await _context.Loans
-            .Include(l => l.LoanItems)
-            .Include(l => l.Payments)
-            .Where(l => l.CustomerId == customerId)
-            .ToListAsync();
+            var totalLoan = await _context.Loans
+                .Where(l => l.CustomerId == customerId)
+                .SelectMany(l => l.LoanItems)
+                .SumAsync(i => (decimal?)i.TotalAmount) ?? 0m;
 
-            decimal totalLoan = loans.SelectMany(l => l.LoanItems).Sum(i => i.TotalAmount);
-            decimal totalPaid = loans.SelectMany(l => l.Payments).Sum(p => p.Amount);
-            decimal debt = totalLoan - totalPaid;
+            var totalPaid = await _context.Loans
+                .Where(l => l.CustomerId == customerId)
+                .SelectMany(l => l.Payments)
+                .SumAsync(p => (decimal?)p.Amount) ?? 0m;
+
+            var debt = totalLoan - totalPaid;
 
             return debt < 0 ? 0 : debt;
         }
+
     }
 }
